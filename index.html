@@ -1,0 +1,131 @@
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        
+        //reolace this with your firebase config in your database
+        const firebaseConfig = {
+                apiKey: "AIzaSyAFNoE47Ff65DUoS8selr_pts0WzxDgQuk",
+                authDomain: "profileapp-fad52.firebaseapp.com",
+                databaseURL: "https://profileapp-fad52-default-rtdb.firebaseio.com",
+                projectId: "profileapp-fad52",
+                storageBucket: "profileapp-fad52.appspot.com",
+                messagingSenderId: "121963715221",
+                appId: "1:121963715221:web:62a28994d109b768d4d99c",
+                measurementId: "G-S2SW89HS5G"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        
+        var database = getDatabase();
+        "ZhMjk3eplMR4Zy4hKOeDEnvmnXX2"
+        // Retrieve data for user with UID -use userID in ur database
+        var user1Ref = ref(database, 'NvIsLflCneOiW50ROw7v9FBuK803');
+        onValue(user1Ref, function(snapshot) {
+            var user1Data = snapshot.val();
+            displayUserData('user1', user1Data);
+        });
+        
+        //Retrieve data for user with UID -use userID in ur database
+        var user2Ref = ref(database, 'SHtCgU229gRSRk2fSNkbErnZOim1');
+        onValue(user2Ref, function(snapshot) {
+            var user2Data = snapshot.val();
+            displayUserData('user2', user2Data);
+        });
+        
+        function displayUserData(userId, userData) {
+            if (userData) {
+                document.getElementById(userId).innerHTML = `
+                    <div style="display: flex; align-items: center;">
+                        <img src="${userData.image}" alt="${userId} Image" style="width: 200px;">
+                        
+                    </div>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <td>${userData.name}</td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td>${userData.DOB}</td>
+                        </tr>
+                        <tr>
+                            <th>Age</th>
+                            <td>${userData.age}</td>
+                        </tr>
+                        <tr>
+                            <th>School</th>
+                            <td>${userData.school}</td>
+                        </tr>
+                    </table>
+                ` + document.getElementById(userId).innerHTML;
+            } else {
+                document.getElementById(userId).innerHTML = 'User data not available';
+            }
+        }
+    </script>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile App</title>
+    <style>
+        /* CSS styles for the banner */
+        .banner {
+            background-color: #e5af44;
+            padding: 100px; /* Reduce the padding value */
+            text-align: center;
+            height: 150px;
+        }
+        
+        /* CSS styles for the profile cards */
+        .profile-card {
+            padding: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* CSS styles for the profile image */
+        .profile-image {
+            width: 200px;
+        }
+        
+        /* CSS styles for the profile table */
+        .profile-table {
+            margin-top: 50px;
+            align-items: center;
+        }
+        
+        .profile-table th {
+            text-align: left;
+        }
+        
+      
+    </style>
+</head>
+<body>
+    <!-- Banner with your logo -->
+    <div class="banner">
+        <img src="logo.png" alt="Your Logo" style="max-width: 100%; max-height: 100%;">
+    </div>
+    
+    <!-- Firebase Web API code -->
+    <script type="module">
+        // Your Firebase Web API code here
+        
+    </script>
+    
+        <div class="web-app" style="border: none;">
+            <!--replace link with your thunkable app link (hit puiblish as webapp and copy link) --->
+            <iframe src="https://thunkable.site/w/_ct99mWle0E6ItpABtTrk" title="Chop Down the Tree Thunkable App" height="50%" width="100%" style="padding-top: 110px;"></iframe>
+        </div>
+    <!-- Profile cards for user1 and user2 -->
+    <div class="profile-card" id="user1"></div>
+    <div class="profile-card" id="user2"></div>
+
+    </body>
+</html>
